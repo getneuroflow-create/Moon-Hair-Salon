@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local QA recordings
+data/mobilewebsiteissue.mp4
+data/mobile-frames/
+
