@@ -150,44 +150,11 @@ export function BookingSection() {
           </div>
         </Reveal>
 
-        {/* Service picker — cards + explicit select */}
+        {/* Service cards — tap to select; dropdown lives in booking details below */}
         <div className="mt-14">
           <h3 className="mb-6 text-center text-xs font-medium uppercase tracking-[0.28em] text-champagne-light">
             {t.booking.selectService}
           </h3>
-
-          <Reveal className="mx-auto mb-8 max-w-xl">
-            <label className="block text-sm">
-              <span className="mb-2 block text-center text-paper/60">
-                {t.booking.selectService}
-              </span>
-              <select
-                value={serviceId}
-                onChange={(e) => {
-                  setServiceId(e.target.value);
-                  setError(null);
-                }}
-                className="w-full rounded-full border border-champagne/70 bg-deep px-4 py-3.5 text-sm text-paper outline-none transition focus:border-champagne sm:px-5"
-                required
-              >
-                <option value="" disabled className="bg-deep text-paper">
-                  {locale === "es"
-                    ? "Selecciona un servicio"
-                    : "Choose a service"}
-                </option>
-                {services.map((service) => (
-                  <option
-                    key={service.id}
-                    value={service.id}
-                    className="bg-deep text-paper"
-                  >
-                    {service.name[locale]} — {t.booking.from} $
-                    {service.priceFrom}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </Reveal>
 
           <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {bookable.map((service) => {
@@ -478,7 +445,7 @@ export function BookingSection() {
                     setServiceId(e.target.value);
                     setError(null);
                   }}
-                  className={fieldClass}
+                  className={`${fieldClass} border-champagne/60`}
                 >
                   <option value="" disabled className="bg-deep text-paper">
                     {locale === "es"
