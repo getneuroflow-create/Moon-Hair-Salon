@@ -18,19 +18,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npm run build
+
+      - name: Verify lockfile
+        run: |
+          node -v
+          npm -v
+          ls -la package.json package-lock.json
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build static site
+        run: npm run build
         env:
           GITHUB_PAGES: "1"
           NEXT_PUBLIC_SITE_URL: https://getneuroflow-create.github.io/Moon-Hair-Salon
-      # Required so GitHub Pages serves paths that start with _ / folders correctly
-      - run: touch out/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
+
+      - name: Add .nojekyll
+        run: touch out/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: out
 
@@ -41,5 +57,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
