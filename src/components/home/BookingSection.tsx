@@ -7,10 +7,9 @@ import {
   Lock,
   Check,
 } from "lucide-react";
-import { BaseImage as Image } from "@/components/ui/BaseImage";
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { FadeImage, Reveal, Section, Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { Reveal, Section } from "@/components/ui/Reveal";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   addMonths,
@@ -40,7 +39,6 @@ function statusDot(status: DayStatus) {
 
 export function BookingSection() {
   const { t, locale } = useLanguage();
-  const bookable = services;
 
   const [serviceId, setServiceId] = useState("");
   const [month, setMonth] = useState(() => startOfMonth(new Date()));
@@ -130,13 +128,15 @@ export function BookingSection() {
           <p className="mt-3 text-xs text-paper/50 sm:text-sm">{t.booking.hoursNote}</p>
         </Reveal>
 
-        {/* Stats */}
         <Reveal className="mx-auto mt-10 max-w-4xl sm:mt-12">
           <div className="grid grid-cols-3 gap-2 rounded-[1.25rem] border border-white/10 px-2 py-6 sm:gap-4 sm:rounded-[1.5rem] sm:px-4 sm:py-8 md:px-10">
             {[
               { value: "5,000+", label: t.booking.stats.clients },
               { value: "15+", label: t.booking.stats.years },
-              { value: String(siteConfig.rating.count), label: t.booking.stats.reviews },
+              {
+                value: String(siteConfig.rating.count),
+                label: t.booking.stats.reviews,
+              },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="font-display text-2xl text-champagne-light sm:text-3xl md:text-5xl">
@@ -150,334 +150,255 @@ export function BookingSection() {
           </div>
         </Reveal>
 
-        {/* Service cards — tap to select; dropdown lives in booking details below */}
-        <div className="mt-14">
-          <h3 className="mb-6 text-center text-xs font-medium uppercase tracking-[0.28em] text-champagne-light">
-            {t.booking.selectService}
-          </h3>
-
-          <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-            {bookable.map((service) => {
-              const active = service.id === serviceId;
-              return (
-                <StaggerItem key={service.id}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setServiceId(service.id);
-                      setError(null);
-                      document
-                        .getElementById("booking-details")
-                        ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                    }}
-                    className={cn(
-                      "group w-full overflow-hidden rounded-[1.25rem] border text-left transition-all duration-400 sm:rounded-[1.5rem]",
-                      active
-                        ? "border-champagne shadow-[0_0_0_1px_rgba(155,53,48,0.5)]"
-                        : "border-white/10 hover:border-white/25",
-                    )}
-                  >
-                    <FadeImage>
-                      <div className="relative aspect-[4/3] overflow-hidden sm:aspect-auto sm:h-40">
-                        <Image
-                          src={service.image}
-                          alt={service.imageAlt[locale]}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          quality={85}
-                          className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/20 to-transparent" />
-                      </div>
-                    </FadeImage>
-                    <div className="bg-deep/90 p-4 sm:p-5">
-                      <h4 className="font-display text-xl text-champagne-light sm:text-2xl">
-                        {service.name[locale]}
-                      </h4>
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-paper/65">
-                        {service.description[locale]}
-                      </p>
-                      <div className="mt-4 flex items-end justify-between gap-3">
-                        <div>
-                          <p className="text-[10px] uppercase tracking-[0.2em] text-champagne">
-                            {t.booking.from}
-                          </p>
-                          <p className="font-display text-2xl text-champagne-light sm:text-3xl">
-                            ${service.priceFrom}
-                          </p>
-                        </div>
-                        <p className="inline-flex items-center gap-1.5 text-xs text-paper/55">
-                          <Clock size={13} />
-                          {service.duration[locale]}
-                        </p>
-                      </div>
-                      <span
-                        className={cn(
-                          "mt-4 inline-flex min-h-10 items-center rounded-full border px-4 py-1.5 text-xs uppercase tracking-wider",
-                          active
-                            ? "border-champagne bg-champagne/20 text-champagne-light"
-                            : "border-white/20 text-paper/80",
-                        )}
-                      >
-                        {active ? t.booking.selected : t.booking.bookNow}
-                      </span>
-                    </div>
-                  </button>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
-        </div>
-
-        {/* Calendar + times */}
-        <Reveal className="mt-14">
-          <h3 className="mb-6 text-center text-xs font-medium uppercase tracking-[0.28em] text-champagne-light">
-            {t.booking.selectDateTime}
-          </h3>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
-            {/* Calendar */}
-            <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] sm:rounded-[1.5rem]">
-              <div className="flex items-center justify-between bg-gradient-to-r from-champagne to-mocha px-4 py-3.5 sm:px-5 sm:py-4">
-                <button
-                  type="button"
-                  aria-label="Previous month"
-                  className="rounded-full bg-paper/15 p-2 text-paper transition hover:bg-paper/25"
-                  onClick={() => setMonth((m) => addMonths(m, -1))}
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <p className="font-display text-xl capitalize text-paper md:text-2xl">
-                  {monthLabel(month, locale)}
-                </p>
-                <button
-                  type="button"
-                  aria-label="Next month"
-                  className="rounded-full bg-paper/15 p-2 text-paper transition hover:bg-paper/25"
-                  onClick={() => setMonth((m) => addMonths(m, 1))}
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-
-              <div className="p-3 sm:p-5">
-                <div className="mb-2 grid grid-cols-7 gap-0.5 text-center text-[9px] uppercase tracking-wider text-champagne-light/80 sm:mb-3 sm:gap-1 sm:text-[10px]">
-                  {weekdayKeys.map((d) => (
-                    <span key={d}>{d}</span>
-                  ))}
-                </div>
-                <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
-                  {cells.map((day, i) => {
-                    if (!day) return <span key={`e-${i}`} />;
-                    const status = getDayStatus(day);
-                    const disabled =
-                      status === "closed" ||
-                      status === "full" ||
-                      isPastDay(day) ||
-                      isSalonClosed(day);
-                    const selected =
-                      selectedDate && sameDay(day, selectedDate);
-                    return (
-                      <button
-                        key={day.toISOString()}
-                        type="button"
-                        disabled={disabled}
-                        onClick={() => pickDate(day)}
-                        className={cn(
-                          "relative flex min-h-10 aspect-square flex-col items-center justify-center rounded-lg text-xs transition sm:rounded-xl sm:text-sm",
-                          selected
-                            ? "bg-champagne text-paper shadow-[0_0_20px_rgba(155,53,48,0.45)]"
-                            : disabled
-                              ? "cursor-not-allowed text-paper/25"
-                              : "text-paper/85 hover:bg-white/10",
-                        )}
-                      >
-                        {day.getDate()}
-                        {!disabled || status === "full" ? (
-                          <span
-                            className={cn(
-                              "mt-0.5 h-1 w-1 rounded-full sm:h-1.5 sm:w-1.5",
-                              selected ? "bg-paper" : statusDot(status),
-                            )}
-                          />
-                        ) : null}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-4 flex flex-wrap gap-3 text-[9px] uppercase tracking-[0.14em] text-paper/55 sm:mt-5 sm:gap-4 sm:text-[10px] sm:tracking-[0.18em]">
-                  <span className="inline-flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                    {t.booking.available}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-amber-400" />
-                    {t.booking.partial}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-rose-400" />
-                    {t.booking.full}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Time slots */}
-            <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] sm:rounded-[1.5rem]">
-              <div className="border-b border-white/10 px-4 py-3.5 sm:px-5 sm:py-4">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex rounded-lg bg-champagne/25 p-2 text-champagne-light">
-                    <Clock size={18} />
-                  </span>
-                  <div>
-                    <p className="font-display text-lg text-paper sm:text-xl">
-                      {t.booking.selectTime}
-                    </p>
-                    <p className="text-sm text-paper/55">
-                      {selectedDate
-                        ? formatDisplayDate(selectedDate, locale)
-                        : "—"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 p-3 sm:gap-3 sm:p-5">
-                {!selectedDate ? (
-                  <p className="col-span-2 text-sm text-paper/45">
-                    {t.booking.needDate}
-                  </p>
-                ) : slots.length === 0 ? (
-                  <p className="col-span-2 text-sm text-paper/45">
-                    {t.booking.closed}
-                  </p>
-                ) : (
-                  slots.map((slot) => {
-                    const booked = slot.status === "booked";
-                    const selected = selectedTime === slot.time;
-                    return (
-                      <button
-                        key={slot.time}
-                        type="button"
-                        disabled={booked}
-                        onClick={() => {
-                          setSelectedTime(slot.time);
-                          setError(null);
-                        }}
-                        className={cn(
-                          "relative flex min-h-[5.5rem] flex-col items-center justify-center rounded-xl border px-3 py-3 text-center transition",
-                          booked
-                            ? "cursor-not-allowed border-white/5 bg-paper/90 text-ink/45"
-                            : selected
-                              ? "border-champagne bg-champagne/25 text-paper"
-                              : "border-white/10 bg-white/[0.03] text-paper/85 hover:border-champagne/50",
-                        )}
-                      >
-                        <Clock
-                          size={14}
-                          className={cn(
-                            "mb-1.5",
-                            booked ? "text-ink/35" : "text-champagne-light",
-                          )}
-                        />
-                        {booked ? (
-                          <span className="text-xs leading-snug line-through">
-                            {slot.time}
-                            {slot.label ? ` · ${slot.label}` : ""}
-                          </span>
-                        ) : (
-                          <span className="text-sm font-medium">
-                            {slot.time}
-                            <span className="mt-1 block text-[10px] uppercase tracking-wider opacity-70">
-                              {t.booking.available}
-                            </span>
-                          </span>
-                        )}
-                        <span className="mt-2">
-                          {booked ? (
-                            <Lock size={14} className="text-ink/40" />
-                          ) : (
-                            <Check
-                              size={14}
-                              className={
-                                selected ? "text-champagne-light" : "text-paper/35"
-                              }
-                            />
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })
-                )}
-              </div>
-
-              <div className="flex flex-wrap gap-4 border-t border-white/10 px-5 py-3 text-[10px] uppercase tracking-[0.18em] text-paper/50">
-                <span>{t.booking.available}</span>
-                <span>{t.booking.booked}</span>
-                <span>{t.booking.selected}</span>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-
-        {/* Details + submit */}
-        <Reveal className="mx-auto mt-10 max-w-3xl">
+        {/* Single booking panel: service + calendar + details */}
+        <Reveal className="mx-auto mt-10 max-w-4xl sm:mt-14">
           <form
             id="booking-details"
             onSubmit={onSubmit}
             className="rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4 sm:rounded-[1.5rem] sm:p-6 md:p-8"
             noValidate
           >
-            <h3 className="font-display text-xl text-paper sm:text-2xl md:text-3xl">
+            <label className="block text-sm">
+              <span className="mb-2 block text-xs font-medium uppercase tracking-[0.22em] text-champagne-light">
+                {t.booking.selectService} *
+              </span>
+              <select
+                name="service"
+                value={serviceId}
+                required
+                onChange={(e) => {
+                  setServiceId(e.target.value);
+                  setError(null);
+                }}
+                className={`${fieldClass} border-champagne/60`}
+              >
+                <option value="" disabled className="bg-deep text-paper">
+                  {locale === "es"
+                    ? "Selecciona un servicio"
+                    : "Choose a service"}
+                </option>
+                {services.map((service) => (
+                  <option
+                    key={service.id}
+                    value={service.id}
+                    className="bg-deep text-paper"
+                  >
+                    {service.name[locale]} — {t.booking.from} $
+                    {service.priceFrom} · {service.duration[locale]}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {selectedService ? (
+              <p className="mt-3 text-sm text-champagne-light">
+                {selectedService.name[locale]} · {t.booking.from} $
+                {selectedService.priceFrom} · {selectedService.duration[locale]}
+              </p>
+            ) : null}
+
+            <h3 className="mt-8 mb-4 text-xs font-medium uppercase tracking-[0.28em] text-champagne-light">
+              {t.booking.selectDateTime}
+            </h3>
+
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
+              <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] sm:rounded-[1.5rem]">
+                <div className="flex items-center justify-between bg-gradient-to-r from-champagne to-mocha px-4 py-3.5 sm:px-5 sm:py-4">
+                  <button
+                    type="button"
+                    aria-label="Previous month"
+                    className="rounded-full bg-paper/15 p-2 text-paper transition hover:bg-paper/25"
+                    onClick={() => setMonth((m) => addMonths(m, -1))}
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+                  <p className="font-display text-xl capitalize text-paper md:text-2xl">
+                    {monthLabel(month, locale)}
+                  </p>
+                  <button
+                    type="button"
+                    aria-label="Next month"
+                    className="rounded-full bg-paper/15 p-2 text-paper transition hover:bg-paper/25"
+                    onClick={() => setMonth((m) => addMonths(m, 1))}
+                  >
+                    <ChevronRight size={18} />
+                  </button>
+                </div>
+
+                <div className="p-3 sm:p-5">
+                  <div className="mb-2 grid grid-cols-7 gap-0.5 text-center text-[9px] uppercase tracking-wider text-champagne-light/80 sm:mb-3 sm:gap-1 sm:text-[10px]">
+                    {weekdayKeys.map((d) => (
+                      <span key={d}>{d}</span>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
+                    {cells.map((day, i) => {
+                      if (!day) return <span key={`e-${i}`} />;
+                      const status = getDayStatus(day);
+                      const disabled =
+                        status === "closed" ||
+                        status === "full" ||
+                        isPastDay(day) ||
+                        isSalonClosed(day);
+                      const selected =
+                        selectedDate && sameDay(day, selectedDate);
+                      return (
+                        <button
+                          key={day.toISOString()}
+                          type="button"
+                          disabled={disabled}
+                          onClick={() => pickDate(day)}
+                          className={cn(
+                            "relative flex min-h-10 aspect-square flex-col items-center justify-center rounded-lg text-xs transition sm:rounded-xl sm:text-sm",
+                            selected
+                              ? "bg-champagne text-paper shadow-[0_0_20px_rgba(155,53,48,0.45)]"
+                              : disabled
+                                ? "cursor-not-allowed text-paper/25"
+                                : "text-paper/85 hover:bg-white/10",
+                          )}
+                        >
+                          {day.getDate()}
+                          {!disabled || status === "full" ? (
+                            <span
+                              className={cn(
+                                "mt-0.5 h-1 w-1 rounded-full sm:h-1.5 sm:w-1.5",
+                                selected ? "bg-paper" : statusDot(status),
+                              )}
+                            />
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap gap-3 text-[9px] uppercase tracking-[0.14em] text-paper/55 sm:mt-5 sm:gap-4 sm:text-[10px] sm:tracking-[0.18em]">
+                    <span className="inline-flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                      {t.booking.available}
+                    </span>
+                    <span className="inline-flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-amber-400" />
+                      {t.booking.partial}
+                    </span>
+                    <span className="inline-flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-rose-400" />
+                      {t.booking.full}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] sm:rounded-[1.5rem]">
+                <div className="border-b border-white/10 px-4 py-3.5 sm:px-5 sm:py-4">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex rounded-lg bg-champagne/25 p-2 text-champagne-light">
+                      <Clock size={18} />
+                    </span>
+                    <div>
+                      <p className="font-display text-lg text-paper sm:text-xl">
+                        {t.booking.selectTime}
+                      </p>
+                      <p className="text-sm text-paper/55">
+                        {selectedDate
+                          ? formatDisplayDate(selectedDate, locale)
+                          : "—"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 p-3 sm:gap-3 sm:p-5">
+                  {!selectedDate ? (
+                    <p className="col-span-2 text-sm text-paper/45">
+                      {t.booking.needDate}
+                    </p>
+                  ) : slots.length === 0 ? (
+                    <p className="col-span-2 text-sm text-paper/45">
+                      {t.booking.closed}
+                    </p>
+                  ) : (
+                    slots.map((slot) => {
+                      const booked = slot.status === "booked";
+                      const selected = selectedTime === slot.time;
+                      return (
+                        <button
+                          key={slot.time}
+                          type="button"
+                          disabled={booked}
+                          onClick={() => {
+                            setSelectedTime(slot.time);
+                            setError(null);
+                          }}
+                          className={cn(
+                            "relative flex min-h-[5.5rem] flex-col items-center justify-center rounded-xl border px-3 py-3 text-center transition",
+                            booked
+                              ? "cursor-not-allowed border-white/5 bg-paper/90 text-ink/45"
+                              : selected
+                                ? "border-champagne bg-champagne/25 text-paper"
+                                : "border-white/10 bg-white/[0.03] text-paper/85 hover:border-champagne/50",
+                          )}
+                        >
+                          <Clock
+                            size={14}
+                            className={cn(
+                              "mb-1.5",
+                              booked ? "text-ink/35" : "text-champagne-light",
+                            )}
+                          />
+                          {booked ? (
+                            <span className="text-xs leading-snug line-through">
+                              {slot.time}
+                              {slot.label ? ` · ${slot.label}` : ""}
+                            </span>
+                          ) : (
+                            <span className="text-sm font-medium">
+                              {slot.time}
+                              <span className="mt-1 block text-[10px] uppercase tracking-wider opacity-70">
+                                {t.booking.available}
+                              </span>
+                            </span>
+                          )}
+                          <span className="mt-2">
+                            {booked ? (
+                              <Lock size={14} className="text-ink/40" />
+                            ) : (
+                              <Check
+                                size={14}
+                                className={
+                                  selected
+                                    ? "text-champagne-light"
+                                    : "text-paper/35"
+                                }
+                              />
+                            )}
+                          </span>
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-4 border-t border-white/10 px-5 py-3 text-[10px] uppercase tracking-[0.18em] text-paper/50">
+                  <span>{t.booking.available}</span>
+                  <span>{t.booking.booked}</span>
+                  <span>{t.booking.selected}</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="font-display mt-8 text-xl text-paper sm:text-2xl">
               {t.booking.yourDetails}
             </h3>
 
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2">
-              <label className="block text-sm sm:col-span-2">
-                <span className="mb-2 block text-paper/60">
-                  {t.booking.selectService} *
-                </span>
-                <select
-                  name="service"
-                  value={serviceId}
-                  required
-                  onChange={(e) => {
-                    setServiceId(e.target.value);
-                    setError(null);
-                  }}
-                  className={`${fieldClass} border-champagne/60`}
-                >
-                  <option value="" disabled className="bg-deep text-paper">
-                    {locale === "es"
-                      ? "Selecciona un servicio"
-                      : "Choose a service"}
-                  </option>
-                  {services.map((service) => (
-                    <option
-                      key={service.id}
-                      value={service.id}
-                      className="bg-deep text-paper"
-                    >
-                      {service.name[locale]} — {t.booking.from} $
-                      {service.priceFrom} · {service.duration[locale]}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              {selectedService ? (
-                <p className="sm:col-span-2 text-sm text-champagne-light">
-                  {selectedService.name[locale]} · {t.booking.from} $
-                  {selectedService.priceFrom}
-                  {selectedDate && selectedTime
-                    ? ` · ${formatDisplayDate(selectedDate, locale)} · ${selectedTime}`
-                    : ""}
-                </p>
-              ) : null}
-
+            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label className="block text-sm sm:col-span-1">
                 <span className="mb-2 block text-paper/60">{t.booking.name}</span>
-                <input name="name" required autoComplete="name" className={fieldClass} />
+                <input
+                  name="name"
+                  required
+                  autoComplete="name"
+                  className={fieldClass}
+                />
               </label>
               <label className="block text-sm">
                 <span className="mb-2 block text-paper/60">{t.booking.phone}</span>
@@ -504,6 +425,13 @@ export function BookingSection() {
                 <textarea name="notes" rows={3} className={fieldClass} />
               </label>
             </div>
+
+            {selectedService && selectedDate && selectedTime ? (
+              <p className="mt-4 text-sm text-champagne-light">
+                {selectedService.name[locale]} ·{" "}
+                {formatDisplayDate(selectedDate, locale)} · {selectedTime}
+              </p>
+            ) : null}
 
             {error ? (
               <p className="mt-4 text-sm text-rose-300" role="alert">
