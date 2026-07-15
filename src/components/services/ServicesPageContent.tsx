@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { BaseImage as Image } from "@/components/ui/BaseImage";
 import { Button } from "@/components/ui/Button";
 import { SpotlightCard } from "@/components/ui/Micro";
 import { FadeImage, Reveal, Section, Stagger, StaggerItem } from "@/components/ui/Reveal";
@@ -30,7 +30,7 @@ export function ServicesPageContent() {
         <Stagger className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((service) => (
             <StaggerItem key={service.id}>
-              <SpotlightCard className="group overflow-hidden rounded-[1.25rem] border border-ink/8 bg-paper">
+              <SpotlightCard className="group overflow-hidden rounded-[1.75rem] border border-ink/6 bg-paper shadow-[0_8px_30px_rgba(23,19,18,0.04)]">
                 <FadeImage>
                   <div className="relative h-44 overflow-hidden sm:h-48">
                     <Image
@@ -52,7 +52,7 @@ export function ServicesPageContent() {
                     {service.description[locale]}
                   </p>
                   <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-champagne">
-                    {service.priceLabel[locale]}
+                    {service.priceLabel[locale]} · {service.duration[locale]}
                   </p>
                 </div>
               </SpotlightCard>
@@ -61,7 +61,14 @@ export function ServicesPageContent() {
         </Stagger>
 
         <Reveal className="mt-14 text-center">
-          <Button href={siteConfig.phoneHref}>{t.common.callNow}</Button>
+          <Button href={siteConfig.phoneHref} variant="wine">
+            {t.common.callNow}
+          </Button>
+          <div className="mt-4">
+            <Button href="/#booking" variant="secondary">
+              {t.booking.submit}
+            </Button>
+          </div>
         </Reveal>
       </div>
     </Section>

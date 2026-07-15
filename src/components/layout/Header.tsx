@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
-import { IconButton, Magnetic } from "@/components/ui/Micro";
+import { IconButton } from "@/components/ui/Micro";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/SocialIcons";
 import { useLanguage } from "@/context/LanguageContext";
 import { siteConfig } from "@/data/site";
@@ -30,6 +30,12 @@ export function Header() {
     { href: "/reviews", label: t.nav.reviews },
     { href: "/contact", label: t.nav.contact },
   ];
+
+  const normalize = (p: string) => {
+    if (!p || p === "/") return "/";
+    return p.replace(/\/+$/, "") || "/";
+  };
+  const current = normalize(pathname);
 
   useEffect(() => {
     setMounted(true);
@@ -53,7 +59,7 @@ export function Header() {
     };
   }, [open]);
 
-  const isHome = pathname === "/";
+  const isHome = current === "/";
   const solid = scrolled || !isHome || open;
 
   const mobileMenu =
@@ -66,7 +72,7 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-label="Navigation"
-            className="fixed inset-0 z-[60] flex flex-col bg-[#0e0c0a] text-[#faf7f2] lg:hidden"
+            className="fixed inset-0 z-[60] flex flex-col bg-deep text-paper lg:hidden"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={reduce ? undefined : { opacity: 0 }}
@@ -91,7 +97,7 @@ export function Header() {
               aria-label="Mobile"
             >
               {links.map((link, i) => {
-                const active = pathname === link.href;
+                const active = current === normalize(link.href);
                 return (
                   <motion.div
                     key={link.href}
@@ -101,9 +107,12 @@ export function Header() {
                   >
                     <Link
                       href={link.href}
+                      prefetch={false}
                       className={cn(
                         "block border-b border-white/10 py-4 font-display text-3xl transition-colors",
-                        active ? "text-[#d9c7a6]" : "text-[#faf7f2] hover:text-[#d9c7a6]",
+                        active
+                          ? "text-champagne-light"
+                          : "text-paper hover:text-champagne-light",
                       )}
                       onClick={() => setOpen(false)}
                     >
@@ -133,7 +142,7 @@ export function Header() {
                 </IconButton>
               </div>
               <Button
-                href={siteConfig.phoneHref}
+                href="/#booking"
                 variant="light"
                 className="w-full"
               >
@@ -171,39 +180,32 @@ export function Header() {
             aria-label="Primary"
           >
             {links.map((link) => {
-              const active = pathname === link.href;
+              const active = current === normalize(link.href);
               return (
-                <Magnetic key={link.href} strength={0.22}>
-                  <Link
-                    href={link.href}
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  prefetch={false}
+                  className={cn(
+                    "group relative z-10 px-1 text-sm tracking-wide transition-colors",
+                    active ? "text-champagne" : "hover:text-champagne",
+                  )}
+                >
+                  <span className="inline-block transition-transform duration-300 group-hover:-translate-y-px">
+                    {link.label}
+                  </span>
+                  <span
                     className={cn(
-                      "group relative px-1 text-sm tracking-wide",
-                      active ? "text-champagne" : "hover:text-champagne",
+                      "absolute -bottom-1 left-0 h-px origin-left bg-champagne transition-transform duration-400",
+                      active
+                        ? "w-full scale-x-100"
+                        : "w-full scale-x-0 group-hover:scale-x-100",
                     )}
-                  >
-                    <motion.span
-                      className="inline-block"
-                      whileHover={reduce ? undefined : { y: -1 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                    >
-                      {link.label}
-                    </motion.span>
-                    <span
-                      className={cn(
-                        "absolute -bottom-1 left-0 h-px origin-left bg-champagne transition-transform duration-400",
-                        active
-                          ? "w-full scale-x-100"
-                          : "w-full scale-x-0 group-hover:scale-x-100",
-                      )}
-                    />
-                    {active ? (
-                      <motion.span
-                        layoutId={reduce ? undefined : "nav-dot"}
-                        className="absolute -bottom-2.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-champagne"
-                      />
-                    ) : null}
-                  </Link>
-                </Magnetic>
+                  />
+                  {active ? (
+                    <span className="absolute -bottom-2.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-champagne" />
+                  ) : null}
+                </Link>
               );
             })}
           </nav>
@@ -225,8 +227,8 @@ export function Header() {
             </IconButton>
             <LanguageSwitcher className={solid ? "text-ink" : "text-paper"} />
             <Button
-              href={siteConfig.phoneHref}
-              variant={solid ? "primary" : "light"}
+              href="/#booking"
+              variant={solid ? "wine" : "light"}
               className="!py-2.5"
             >
               <Phone size={15} />

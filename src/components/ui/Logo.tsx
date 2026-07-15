@@ -32,13 +32,13 @@ export function Logo({ className, tone = "light", priority = false }: LogoProps)
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`${withBasePath(src)}?v=4`}
+        src={`${withBasePath(src)}?v=5`}
         alt={siteConfig.name}
-        width={160}
-        height={88}
+        width={200}
+        height={86}
         decoding="async"
         loading={priority ? "eager" : "lazy"}
-        className={cn("h-10 w-auto object-contain md:h-11", className)}
+        className={cn("h-9 w-auto object-contain md:h-10", className)}
       />
     </motion.span>
   );

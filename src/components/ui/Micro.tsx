@@ -72,7 +72,7 @@ export function SpotlightCard({
   const reduce = useReducedMotion();
   const mx = useMotionValue(50);
   const my = useMotionValue(50);
-  const background = useMotionTemplate`radial-gradient(420px circle at ${mx}% ${my}%, rgba(166,135,86,0.14), transparent 45%)`;
+  const background = useMotionTemplate`radial-gradient(420px circle at ${mx}% ${my}%, rgba(155,53,48,0.12), transparent 45%)`;
 
   function onMove(e: MouseEvent<HTMLDivElement>) {
     if (reduce) return;

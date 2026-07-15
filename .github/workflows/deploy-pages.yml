@@ -28,6 +28,8 @@ jobs:
         env:
           GITHUB_PAGES: "1"
           NEXT_PUBLIC_SITE_URL: https://getneuroflow-create.github.io/Moon-Hair-Salon
+      # Required so GitHub Pages serves paths that start with _ / folders correctly
+      - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

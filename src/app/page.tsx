@@ -1,4 +1,5 @@
 import { About } from "@/components/home/About";
+import { BookingSection } from "@/components/home/BookingSection";
 import { FaqSection } from "@/components/home/FaqSection";
 import { Hero } from "@/components/home/Hero";
 import { InquiryForm } from "@/components/home/InquiryForm";
@@ -14,6 +15,7 @@ export default function HomePage() {
       <About />
       <ServicesPreview />
       <WhyChooseUs />
+      <BookingSection />
       <ReviewsSlider />
       <ReviewCta />
       <InquiryForm />

@@ -44,6 +44,8 @@ export type Dictionary = {
   why: {
     eyebrow: string;
     title: string;
+    body: string;
+    stats: { rating: string; reviews: string };
     items: { title: string; body: string }[];
   };
   reviews: {
@@ -62,6 +64,7 @@ export type Dictionary = {
     eyebrow: string;
     title: string;
     body: string;
+    formTitle: string;
     name: string;
     phone: string;
     email: string;
@@ -71,6 +74,35 @@ export type Dictionary = {
     submit: string;
     success: string;
     note: string;
+  };
+  booking: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    hoursNote: string;
+    selectService: string;
+    from: string;
+    bookNow: string;
+    selectDateTime: string;
+    selectTime: string;
+    available: string;
+    partial: string;
+    full: string;
+    booked: string;
+    selected: string;
+    closed: string;
+    yourDetails: string;
+    name: string;
+    phone: string;
+    email: string;
+    notes: string;
+    submit: string;
+    success: string;
+    note: string;
+    needService: string;
+    needDate: string;
+    needTime: string;
+    stats: { clients: string; years: string; reviews: string };
   };
   faq: {
     eyebrow: string;
@@ -155,14 +187,19 @@ export const en: Dictionary = {
     ],
   },
   servicesPreview: {
-    eyebrow: "Services",
+    eyebrow: "Our Services",
     title: "Signature salon care",
-    body: "From balayage and highlighting to blowdry, keratin, and nail care. Crafted with care in Metuchen.",
+    body: "Beyond haircuts, discover a comprehensive range of services, from coloring to extensions.",
     cta: "See Full Menu",
   },
   why: {
     eyebrow: "Why Moon",
-    title: "Why clients choose Moon Hair Studio",
+    title: "Why choose us",
+    body: "A welcoming Metuchen salon where friendly service, a calm space, and polished results come together.",
+    stats: {
+      rating: "Average Google rating",
+      reviews: "Happy local reviews",
+    },
     items: [
       {
         title: "Friendly team",
@@ -195,9 +232,10 @@ export const en: Dictionary = {
     button: "Leave a Google Review",
   },
   inquiry: {
-    eyebrow: "Inquire",
-    title: "Tell us what you’re looking for",
-    body: "Share a few details and we’ll help you find the right appointment. Prefer to talk? Call us anytime.",
+    eyebrow: "Inquiry",
+    title: "Ready for your next look?",
+    body: "Ready for a transformative experience? Reach out and let us craft a style that defines you.",
+    formTitle: "Send an inquiry",
     name: "Full name",
     phone: "Phone",
     email: "Email",
@@ -220,9 +258,43 @@ export const en: Dictionary = {
       "Pedicure",
       "Other / not sure",
     ],
-    submit: "Send Inquiry",
+    submit: "Book appointment",
     success: "Thank you. We’ll be in touch soon.",
     note: "This form prepares your inquiry locally. For fastest booking, please call +1 732 442 0082.",
+  },
+  booking: {
+    eyebrow: "Book",
+    title: "Book an appointment",
+    body: "Choose your service, pick a date and time, and request your visit. We’ll confirm by phone or email.",
+    hoursNote:
+      "Available Monday–Saturday per salon hours. Sundays closed. Slots marked Full or Booked cannot be selected.",
+    selectService: "Select a service",
+    from: "From",
+    bookNow: "Select",
+    selectDateTime: "Select date & time",
+    selectTime: "Select a time",
+    available: "Available",
+    partial: "Partial",
+    full: "Full",
+    booked: "Booked",
+    selected: "Selected",
+    closed: "Closed",
+    yourDetails: "Your details",
+    name: "Full name",
+    phone: "Phone",
+    email: "Email",
+    notes: "Notes (optional)",
+    submit: "Book appointment",
+    success: "Request sent. We’ll confirm your appointment shortly.",
+    note: "Online requests are reviewed by our team. Call +1 732 442 0082 for same day bookings.",
+    needService: "Please select a service.",
+    needDate: "Please select a date.",
+    needTime: "Please select an available time.",
+    stats: {
+      clients: "Happy clients",
+      years: "Years experience",
+      reviews: "Google reviews",
+    },
   },
   faq: {
     eyebrow: "FAQ",
@@ -240,7 +312,7 @@ export const en: Dictionary = {
     subtitle:
       "Premium salon services in Metuchen. Balayage, color, blowdry, treatments, extensions, and nails.",
     pricingNote:
-      "Pricing varies by hair length, density, and desired result. Call for a personalized quote.",
+      "Starting prices are listed below. Final pricing may vary by hair length, density, and consultation.",
   },
   teamPage: {
     title: "Our Team",
@@ -320,14 +392,19 @@ export const es: Dictionary = {
     ],
   },
   servicesPreview: {
-    eyebrow: "Servicios",
+    eyebrow: "Nuestros Servicios",
     title: "Cuidado de salón con firma",
-    body: "Desde balayage y mechas hasta blowdry, keratina y cuidado de uñas. Con cuidado en Metuchen.",
+    body: "Más allá de los cortes, descubre una gama completa de servicios, desde coloración hasta extensiones.",
     cta: "Ver Menú Completo",
   },
   why: {
     eyebrow: "Por qué Moon",
-    title: "Por qué eligen Moon Hair Studio",
+    title: "Por qué elegirnos",
+    body: "Un salón acogedor en Metuchen donde el servicio amable, un espacio calmado y resultados pulidos se encuentran.",
+    stats: {
+      rating: "Valoración media en Google",
+      reviews: "Reseñas locales felices",
+    },
     items: [
       {
         title: "Equipo amable",
@@ -361,8 +438,9 @@ export const es: Dictionary = {
   },
   inquiry: {
     eyebrow: "Consulta",
-    title: "Cuéntanos qué buscas",
-    body: "Comparte algunos detalles y te ayudaremos a encontrar la cita ideal. ¿Prefieres hablar? Llámanos cuando quieras.",
+    title: "¿Lista para tu próximo look?",
+    body: "¿Lista para una experiencia transformadora? Contáctanos y creemos un estilo que te defina.",
+    formTitle: "Envíanos tu consulta",
     name: "Nombre completo",
     phone: "Teléfono",
     email: "Correo",
@@ -385,9 +463,43 @@ export const es: Dictionary = {
       "Pedicura",
       "Otro / no estoy segura",
     ],
-    submit: "Enviar Consulta",
+    submit: "Reservar cita",
     success: "Gracias. Pronto nos pondremos en contacto.",
     note: "Este formulario prepara tu consulta localmente. Para reservar más rápido, llama al +1 732 442 0082.",
+  },
+  booking: {
+    eyebrow: "Reservar",
+    title: "Reservar una cita",
+    body: "Elige tu servicio, selecciona fecha y hora, y solicita tu visita. Confirmaremos por teléfono o correo.",
+    hoursNote:
+      "Disponible de lunes a sábado según el horario del salón. Domingos cerrado. Los horarios marcados como Lleno o Reservado no se pueden seleccionar.",
+    selectService: "Selecciona un servicio",
+    from: "Desde",
+    bookNow: "Elegir",
+    selectDateTime: "Selecciona fecha y hora",
+    selectTime: "Selecciona una hora",
+    available: "Disponible",
+    partial: "Parcial",
+    full: "Lleno",
+    booked: "Reservado",
+    selected: "Seleccionado",
+    closed: "Cerrado",
+    yourDetails: "Tus datos",
+    name: "Nombre completo",
+    phone: "Teléfono",
+    email: "Correo",
+    notes: "Notas (opcional)",
+    submit: "Reservar cita",
+    success: "Solicitud enviada. Confirmaremos tu cita pronto.",
+    note: "Las solicitudes en línea las revisa nuestro equipo. Llama al +1 732 442 0082 para citas el mismo día.",
+    needService: "Por favor selecciona un servicio.",
+    needDate: "Por favor selecciona una fecha.",
+    needTime: "Por favor selecciona una hora disponible.",
+    stats: {
+      clients: "Clientes felices",
+      years: "Años de experiencia",
+      reviews: "Reseñas de Google",
+    },
   },
   faq: {
     eyebrow: "Preguntas",
@@ -405,7 +517,7 @@ export const es: Dictionary = {
     subtitle:
       "Servicios premium de salón en Metuchen. Balayage, color, blowdry, tratamientos, extensiones y uñas.",
     pricingNote:
-      "Los precios varían según largo, densidad y resultado deseado. Llama para una cotización personalizada.",
+      "Los precios iniciales se muestran abajo. El precio final puede variar según largo, densidad y consulta.",
   },
   teamPage: {
     title: "Nuestro Equipo",

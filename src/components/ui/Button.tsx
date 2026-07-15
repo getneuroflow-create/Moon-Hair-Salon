@@ -6,16 +6,17 @@ import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 import { Magnetic } from "@/components/ui/Micro";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "light";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "light" | "wine";
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-ink text-paper hover:bg-champagne hover:text-ink shadow-[0_10px_30px_rgba(26,22,18,0.12)]",
+    "bg-ink text-paper hover:bg-wine hover:text-paper shadow-[0_12px_32px_rgba(23,19,18,0.14)]",
+  wine: "bg-wine text-paper hover:bg-wine-deep shadow-[0_12px_32px_rgba(155,53,48,0.35)]",
   secondary:
-    "bg-transparent text-ink border border-ink/20 hover:border-champagne hover:text-champagne",
-  ghost: "bg-transparent text-ink hover:text-champagne",
+    "bg-transparent text-ink border border-ink/15 hover:border-wine hover:text-wine",
+  ghost: "bg-transparent text-ink hover:text-wine",
   light:
-    "bg-paper/95 text-ink hover:bg-champagne hover:text-ink shadow-[0_10px_30px_rgba(0,0,0,0.2)]",
+    "bg-paper text-ink hover:bg-wine hover:text-paper shadow-[0_12px_32px_rgba(0,0,0,0.18)]",
 };
 
 type Props = {
@@ -41,7 +42,7 @@ export function Button({
 }: Props) {
   const reduce = useReducedMotion();
   const classes = cn(
-    "group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm tracking-wide transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+    "group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-medium tracking-wide",
     variants[variant],
     className,
   );
@@ -51,7 +52,7 @@ export function Button({
       {!reduce ? (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover/btn:translate-x-full"
+          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover/btn:translate-x-full"
         />
       ) : null}
       <span className="relative z-10 inline-flex items-center gap-2">
@@ -63,7 +64,11 @@ export function Button({
   const motionProps = {
     whileHover: reduce
       ? undefined
-      : { y: -3, scale: 1.03, transition: { type: "spring" as const, stiffness: 400, damping: 22 } },
+      : {
+          y: -3,
+          scale: 1.03,
+          transition: { type: "spring" as const, stiffness: 400, damping: 22 },
+        },
     whileTap: reduce
       ? undefined
       : { scale: 0.96, transition: { duration: 0.12 } },

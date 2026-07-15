@@ -102,7 +102,7 @@ export function ReviewsSlider() {
                     width: i === index ? 32 : 6,
                     backgroundColor:
                       i === index
-                        ? "rgba(166,135,86,1)"
+                        ? "rgba(155,53,48,1)"
                         : "rgba(250,247,242,0.25)",
                   }}
                   transition={{ type: "spring", stiffness: 380, damping: 26 }}

@@ -30,7 +30,7 @@ export const siteConfig = {
     embed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3031.7775458494552!2d-74.3706874!3d40.5465036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3ca78303565ef%3A0xf548112cceded1f7!2sMoon%20Hair%20Studio!5e0!3m2!1sen!2s!4v1784072173532!5m2!1sen!2s",
     review:
-      "https://www.google.com/maps/place/Moon+Hair+Studio/@40.5465036,-74.3706874,17z/data=!4m8!3m7!1s0x89c3ca78303565ef:0xf548112cceded1f7!8m2!3d40.5465036!4d-74.3706874!9m1!1b1",
+      "https://www.google.com/maps/place/Moon+Hair+Studio/@40.5464631,-74.3709065,16z/data=!4m9!3m8!1s0x89c3ca78303565ef:0xf548112cceded1f7!8m2!3d40.5465036!4d-74.3706874!9m1!1b1!10e5!16s%2Fg%2F11dxkq7v9m?entry=ttu&g_ep=EgoyMDI2MDcxMi4wIKXMDSoASAFQAw%3D%3D",
   },
   rating: {
     value: 4.4,

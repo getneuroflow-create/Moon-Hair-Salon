@@ -12,10 +12,10 @@ export function ReviewCta() {
 
   return (
     <Section className="relative overflow-hidden py-20 md:py-24">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#1a1612_0%,#2a2218_50%,#1a1612_100%)]" />
-      <div className="absolute inset-0 -z-10 opacity-40">
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#110e0c_0%,#2a1816_45%,#110e0c_100%)]" />
+      <div className="absolute inset-0 -z-10 opacity-50">
         <motion.div
-          className="absolute left-1/4 top-0 h-64 w-64 rounded-full bg-champagne/25 blur-3xl"
+          className="absolute left-1/4 top-0 h-64 w-64 rounded-full bg-wine/30 blur-3xl"
           animate={{ opacity: [0.35, 0.6, 0.35], scale: [1, 1.08, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />

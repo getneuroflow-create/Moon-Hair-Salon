@@ -28,7 +28,7 @@ export function FaqSection() {
             return (
               <StaggerItem key={item.id}>
                 <motion.div
-                  className="overflow-hidden rounded-2xl border border-ink/8 bg-paper transition-shadow duration-500 hover:shadow-[0_10px_30px_rgba(26,22,18,0.06)]"
+                  className="overflow-hidden rounded-[1.25rem] border border-ink/6 bg-paper transition-shadow duration-500 hover:shadow-[0_14px_40px_rgba(23,19,18,0.07)]"
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 26 }}
                 >

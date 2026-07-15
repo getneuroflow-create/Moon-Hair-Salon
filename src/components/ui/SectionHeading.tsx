@@ -27,8 +27,8 @@ export function SectionHeading({
         <motion.p
           variants={reduce ? undefined : fadeUp}
           className={cn(
-            "mb-3 text-xs uppercase tracking-[0.28em]",
-            tone === "dark" ? "text-champagne-light" : "text-champagne",
+            "mb-3 text-xs font-medium uppercase tracking-[0.28em]",
+            tone === "dark" ? "text-champagne-light" : "text-wine",
           )}
         >
           {eyebrow}
@@ -37,7 +37,7 @@ export function SectionHeading({
       <motion.h2
         variants={reduce ? undefined : fadeUp}
         className={cn(
-          "font-display text-3xl leading-tight md:text-5xl",
+          "font-display text-4xl leading-tight md:text-5xl lg:text-[3.25rem]",
           tone === "dark" ? "text-paper" : "text-ink",
         )}
       >

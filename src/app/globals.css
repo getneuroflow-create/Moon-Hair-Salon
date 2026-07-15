@@ -1,18 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --ivory: #f4f0ea;
-  --paper: #faf7f2;
-  --ink: #1a1612;
-  --ink-soft: #5c534a;
-  --champagne: #a68756;
-  --champagne-light: #d9c7a6;
-  --blush: #c4a494;
-  --deep: #0e0c0a;
-  --line: rgba(26, 22, 18, 0.1);
-  --glass: rgba(250, 247, 242, 0.72);
+  /* Porcelain soft — clean, warm, not generic cream */
+  --ivory: #f9f5f1;
+  --paper: #fffdfb;
+  --sand: #ebe3d9;
+  --ink: #171312;
+  --ink-soft: #6a5c54;
+  /* Wine accent (inspired CTAs / Why panel) */
+  --champagne: #9b3530;
+  --champagne-light: #e5aba6;
+  --wine: #9b3530;
+  --wine-deep: #6e2420;
+  --mocha: #5c4338;
+  --blush: #c48b7a;
+  --deep: #110e0c;
+  --line: rgba(23, 19, 18, 0.1);
+  --glass: rgba(255, 253, 251, 0.78);
   --background: var(--ivory);
   --foreground: var(--ink);
+  --radius-soft: 1.75rem;
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
@@ -20,10 +28,14 @@
   --color-foreground: var(--foreground);
   --color-ivory: var(--ivory);
   --color-paper: var(--paper);
+  --color-sand: var(--sand);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-champagne: var(--champagne);
   --color-champagne-light: var(--champagne-light);
+  --color-wine: var(--wine);
+  --color-wine-deep: var(--wine-deep);
+  --color-mocha: var(--mocha);
   --color-blush: var(--blush);
   --color-deep: var(--deep);
   --font-display: var(--font-display);
@@ -47,20 +59,20 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--champagne) 35%, white);
+  background: color-mix(in oklab, var(--wine) 28%, white);
   color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--champagne);
+  outline: 2px solid var(--wine);
   outline-offset: 3px;
 }
 
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
 }
 
-/* Smooth transitions on interactive UI */
 a,
 button,
 input,
@@ -68,21 +80,21 @@ select,
 textarea,
 summary {
   transition:
-    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    color 0.4s var(--ease-luxe),
+    background-color 0.4s var(--ease-luxe),
+    border-color 0.4s var(--ease-luxe),
+    box-shadow 0.45s var(--ease-luxe),
+    opacity 0.4s var(--ease-luxe),
+    transform 0.45s var(--ease-luxe),
+    filter 0.45s var(--ease-luxe);
 }
 
 img,
 iframe {
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.7s var(--ease-luxe),
+    transform 0.7s var(--ease-luxe),
+    filter 0.5s var(--ease-luxe);
 }
 
 .smooth-underline {
@@ -90,26 +102,25 @@ iframe {
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0% 1px;
-  transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-size 0.45s var(--ease-luxe);
 }
 
 .smooth-underline:hover {
   background-size: 100% 1px;
 }
 
-/* Micro interaction helpers */
 .tap-feedback:active {
   transform: scale(0.97);
 }
 
 label:focus-within span {
   color: var(--champagne-light);
-  transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 0.35s var(--ease-luxe);
 }
 
 .texture-grain {
   background-image: radial-gradient(
-    rgba(26, 22, 18, 0.035) 0.6px,
+    rgba(23, 19, 18, 0.03) 0.6px,
     transparent 0.6px
   );
   background-size: 3px 3px;
@@ -117,15 +128,32 @@ label:focus-within span {
 
 .gradient-atmosphere {
   background:
-    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(166, 135, 86, 0.12), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(196, 164, 148, 0.14), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 12% 0%, rgba(155, 53, 48, 0.07), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 92% 8%, rgba(92, 67, 56, 0.1), transparent 50%),
     linear-gradient(180deg, var(--paper) 0%, var(--ivory) 100%);
 }
 
 .gradient-deep {
   background:
-    radial-gradient(ellipse 70% 60% at 50% 20%, rgba(166, 135, 86, 0.18), transparent 55%),
-    linear-gradient(180deg, #161310 0%, #0e0c0a 100%);
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(155, 53, 48, 0.22), transparent 55%),
+    linear-gradient(180deg, #1a1513 0%, #110e0c 100%);
+}
+
+.gradient-wine {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(255, 255, 255, 0.08), transparent 50%),
+    linear-gradient(145deg, #b3443e 0%, #9b3530 42%, #6e2420 100%);
+}
+
+.gradient-mocha {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 30%, rgba(255, 255, 255, 0.08), transparent 50%),
+    linear-gradient(160deg, #6e5346 0%, #5c4338 50%, #3d2c25 100%);
+}
+
+.surface-soft {
+  border-radius: var(--radius-soft);
+  background: var(--paper);
 }
 
 @media (prefers-reduced-motion: reduce) {

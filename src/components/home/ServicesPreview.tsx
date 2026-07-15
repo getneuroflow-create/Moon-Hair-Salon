@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import { BaseImage as Image } from "@/components/ui/BaseImage";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { SpotlightCard } from "@/components/ui/Micro";
 import {
   FadeImage,
   Reveal,
@@ -11,62 +10,67 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/ui/Reveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useLanguage } from "@/context/LanguageContext";
 import { services } from "@/data/services";
+import { cn } from "@/lib/utils";
 
 export function ServicesPreview() {
   const { t, locale } = useLanguage();
-  const featured = services.filter((s) => s.featured).slice(0, 8);
+  const featured = services.filter((s) => s.featured).slice(0, 3);
 
   return (
-    <Section className="bg-paper py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <Reveal>
-            <SectionHeading
-              eyebrow={t.servicesPreview.eyebrow}
-              title={t.servicesPreview.title}
-              body={t.servicesPreview.body}
-            />
-          </Reveal>
-          <Reveal delay={0.15}>
-            <Button href="/services" variant="secondary">
+    <Section className="bg-ivory py-24 md:py-32">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] lg:gap-16">
+        <Reveal direction="left">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-wine">
+            {t.servicesPreview.eyebrow}
+          </p>
+          <h2 className="font-display text-4xl leading-tight text-ink md:text-5xl lg:text-6xl">
+            {t.servicesPreview.title}
+          </h2>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
+            {t.servicesPreview.body}
+          </p>
+          <div className="mt-8">
+            <Button href="/services" variant="wine">
               {t.servicesPreview.cta}
             </Button>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
-        <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((service) => (
-            <StaggerItem key={service.id}>
+        <Stagger className="flex items-end gap-3 sm:gap-4 md:gap-5">
+          {featured.map((service, i) => (
+            <StaggerItem
+              key={service.id}
+              className={cn(
+                "min-w-0 flex-1",
+                i === 1 ? "pb-0" : "pb-6 md:pb-10",
+              )}
+            >
               <Link href="/services" className="group block">
-                <SpotlightCard className="overflow-hidden rounded-2xl border border-ink/8 bg-paper transition-shadow duration-500 group-hover:shadow-[0_16px_40px_rgba(26,22,18,0.08)]">
-                  <FadeImage>
-                    <div className="relative mx-auto h-48 w-full max-w-[280px] overflow-hidden sm:h-52 sm:max-w-none">
-                      <Image
-                        src={service.image}
-                        alt={service.imageAlt[locale]}
-                        fill
-                        sizes="(max-width: 640px) 280px, (max-width: 1024px) 40vw, 240px"
-                        quality={90}
-                        className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
-                        loading="lazy"
-                      />
-                    </div>
+                <div
+                  className={cn(
+                    "relative overflow-hidden rounded-[1.75rem] bg-sand transition-transform duration-500 group-hover:-translate-y-1",
+                    i === 1
+                      ? "aspect-[3/4.4] sm:aspect-[3/4.6]"
+                      : "aspect-[3/3.8] sm:aspect-[3/4]",
+                  )}
+                >
+                  <FadeImage className="absolute inset-0">
+                    <Image
+                      src={service.image}
+                      alt={service.imageAlt[locale]}
+                      fill
+                      sizes="(max-width: 768px) 33vw, 22vw"
+                      quality={90}
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.05]"
+                    />
                   </FadeImage>
-                  <div className="p-4">
-                    <h3 className="font-display text-xl text-ink transition-colors duration-400 group-hover:text-champagne">
-                      {service.name[locale]}
-                    </h3>
-                    <p className="mt-1.5 line-clamp-2 text-sm text-ink-soft">
-                      {service.description[locale]}
-                    </p>
-                    <p className="mt-2.5 text-[10px] uppercase tracking-[0.2em] text-champagne">
-                      {service.priceLabel[locale]}
-                    </p>
-                  </div>
-                </SpotlightCard>
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
+                  <span className="absolute left-3 top-3 rounded-full bg-paper px-3 py-1.5 text-[11px] font-semibold tracking-wide text-ink shadow-sm sm:left-4 sm:top-4 sm:text-xs">
+                    {service.name[locale]}
+                  </span>
+                </div>
               </Link>
             </StaggerItem>
           ))}

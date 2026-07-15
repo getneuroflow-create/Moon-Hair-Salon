@@ -16,15 +16,16 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "18%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, reduce ? 1 : 0.35]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "16%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, reduce ? 1 : 0.4]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.06]);
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-deep text-paper"
+      className="relative flex min-h-[100svh] items-end overflow-hidden bg-mocha text-paper"
     >
-      <motion.div style={{ y }} className="absolute inset-0">
+      <motion.div style={{ y, scale }} className="absolute inset-0">
         <motion.video
           className="h-full w-full object-cover"
           autoPlay
@@ -34,71 +35,79 @@ export function Hero() {
           preload="metadata"
           poster={withBasePath("/brand/logo.png")}
           aria-hidden
-          initial={reduce ? false : { scale: 1.08, opacity: 0.7 }}
+          initial={reduce ? false : { scale: 1.1, opacity: 0.65 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <source
             src={withBasePath(siteConfig.media.introVideo)}
             type="video/mp4"
           />
         </motion.video>
-        <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/55 to-deep/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(14,12,10,0.55)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-mocha/90 via-mocha/55 to-mocha/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/40 to-transparent" />
       </motion.div>
 
       <motion.div
         style={{ opacity }}
-        className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-36 md:px-8 md:pb-24"
+        className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-20 pt-36 md:px-8 md:pb-28"
       >
         <motion.p
-          className="mb-4 text-xs uppercase tracking-[0.35em] text-champagne-light"
-          initial={reduce ? false : { opacity: 0, y: 16 }}
+          className="mb-5 text-[11px] font-medium uppercase tracking-[0.4em] text-champagne-light"
+          initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
+          transition={{ duration: 0.8, delay: 0.12 }}
         >
           Metuchen, New Jersey
         </motion.p>
 
         <motion.h1
-          className="font-display max-w-3xl text-5xl leading-[1.05] md:text-7xl"
+          className="max-w-3xl"
           initial={reduce ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.25 }}
+          transition={{ duration: 1, delay: 0.22 }}
         >
-          <span className="block text-champagne-light">{t.hero.brand}</span>
-          <span className="mt-3 block text-[0.72em] text-paper/95">{t.hero.headline}</span>
+          <span className="font-display block text-5xl leading-[0.95] text-paper md:text-7xl lg:text-[5.5rem]">
+            {t.hero.brand}
+          </span>
+          <span className="mt-5 block max-w-xl text-lg font-medium leading-snug text-paper/90 md:text-2xl">
+            {t.hero.headline}
+          </span>
         </motion.h1>
 
         <motion.p
-          className="mt-6 max-w-xl text-base leading-relaxed text-paper/75 md:text-lg"
-          initial={reduce ? false : { opacity: 0, y: 20 }}
+          className="mt-6 max-w-lg text-base leading-relaxed text-paper/70 md:text-lg"
+          initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.85, delay: 0.38 }}
         >
           {t.hero.subhead}
         </motion.p>
 
         <motion.div
-          className="mt-8 flex flex-wrap items-center gap-4"
+          className="mt-10 flex flex-wrap items-center gap-4"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.55 }}
+          transition={{ duration: 0.75, delay: 0.52 }}
         >
-          <Button href={siteConfig.phoneHref} variant="light">
+          <Button href={siteConfig.phoneHref} variant="wine">
             <Phone size={16} />
             {t.hero.ctaPrimary}
           </Button>
-          <Button href="/services" variant="secondary" className="!border-paper/30 !text-paper hover:!border-champagne hover:!text-champagne">
-            {t.hero.ctaSecondary}
+          <Button
+            href="/#booking"
+            variant="secondary"
+            className="!border-paper/35 !text-paper hover:!border-paper hover:!bg-paper/10 hover:!text-paper"
+          >
+            {t.booking.submit}
           </Button>
         </motion.div>
 
         <motion.p
-          className="mt-8 text-sm tracking-wide text-paper/55"
+          className="mt-10 text-sm tracking-wide text-paper/55"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.75 }}
+          transition={{ delay: 0.7 }}
         >
           {t.hero.trust}
         </motion.p>
