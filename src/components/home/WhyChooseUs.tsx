@@ -18,25 +18,25 @@ export function WhyChooseUs() {
   const reduce = useReducedMotion();
 
   return (
-    <Section className="relative overflow-hidden py-24 text-paper md:py-32">
+    <Section className="relative overflow-x-hidden py-16 text-paper sm:py-24 md:py-32">
       <div className="gradient-wine absolute inset-0 -z-10" />
       <div className="texture-grain absolute inset-0 -z-10 opacity-20" />
 
-      <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-[0.9fr_1.2fr] lg:gap-16 lg:items-center">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:gap-14 sm:px-5 md:px-8 lg:grid-cols-[0.9fr_1.2fr] lg:gap-16 lg:items-center">
         <div>
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-paper/70">
             {t.why.eyebrow}
           </p>
-          <h2 className="font-display text-4xl leading-tight md:text-5xl lg:text-6xl">
+          <h2 className="font-display text-[2rem] leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {t.why.title}
           </h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-paper/75 md:text-lg">
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-paper/75 sm:text-base md:text-lg">
             {t.why.body}
           </p>
 
-          <div className="mt-12 flex items-stretch gap-8">
+          <div className="mt-10 flex items-stretch gap-6 sm:mt-12 sm:gap-8">
             <div>
-              <p className="font-display text-5xl md:text-6xl">
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl">
                 {siteConfig.rating.value}★
               </p>
               <p className="mt-2 text-sm text-paper/65">
@@ -45,7 +45,7 @@ export function WhyChooseUs() {
             </div>
             <div className="w-px bg-paper/25" aria-hidden />
             <div>
-              <p className="font-display text-5xl md:text-6xl">
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl">
                 {siteConfig.rating.count}
               </p>
               <p className="mt-2 text-sm text-paper/65">
@@ -55,7 +55,7 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        <Stagger className="grid gap-4 sm:grid-cols-2">
+        <Stagger className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
           {t.why.items.map((item, i) => {
             const Icon = icons[i % icons.length];
             return (

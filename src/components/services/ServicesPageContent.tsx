@@ -13,8 +13,8 @@ export function ServicesPageContent() {
   const { t, locale } = useLanguage();
 
   return (
-    <Section className="pb-24 pt-28 md:pb-32 md:pt-36">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <Section className="overflow-x-hidden pb-20 pt-24 sm:pb-24 sm:pt-28 md:pb-32 md:pt-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         <Reveal>
           <SectionHeading
             title={t.servicesPage.title}
@@ -27,12 +27,12 @@ export function ServicesPageContent() {
           </p>
         </Reveal>
 
-        <Stagger className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <Stagger className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((service) => (
             <StaggerItem key={service.id}>
-              <SpotlightCard className="group overflow-hidden rounded-[1.75rem] border border-ink/6 bg-paper shadow-[0_8px_30px_rgba(23,19,18,0.04)]">
+              <SpotlightCard className="group overflow-hidden rounded-[1.5rem] border border-ink/6 bg-paper shadow-[0_8px_30px_rgba(23,19,18,0.04)] sm:rounded-[1.75rem]">
                 <FadeImage>
-                  <div className="relative h-44 overflow-hidden sm:h-48">
+                  <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={service.image}
                       alt={service.imageAlt[locale]}
@@ -44,7 +44,7 @@ export function ServicesPageContent() {
                     />
                   </div>
                 </FadeImage>
-                <div className="p-5">
+                <div className="p-4 sm:p-5">
                   <h3 className="font-display text-xl text-ink transition-colors duration-400 group-hover:text-champagne">
                     {service.name[locale]}
                   </h3>
@@ -60,12 +60,12 @@ export function ServicesPageContent() {
           ))}
         </Stagger>
 
-        <Reveal className="mt-14 text-center">
-          <Button href={siteConfig.phoneHref} variant="wine">
+        <Reveal className="mt-12 space-y-3 text-center sm:mt-14">
+          <Button href={siteConfig.phoneHref} variant="wine" className="w-full sm:w-auto">
             {t.common.callNow}
           </Button>
-          <div className="mt-4">
-            <Button href="/#booking" variant="secondary">
+          <div>
+            <Button href="/#booking" variant="secondary" className="w-full sm:w-auto">
               {t.booking.submit}
             </Button>
           </div>

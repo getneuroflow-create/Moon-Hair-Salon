@@ -28,15 +28,27 @@ export type LoaderVariant = keyof typeof TIMINGS;
 type Phase = "boot" | "enter" | "bloom" | "exit";
 
 function useTileSize() {
-  const [size, setSize] = useState({ width: 180, height: 290, gap: 20 });
+  const [size, setSize] = useState({
+    width: 180,
+    height: 290,
+    gap: 20,
+    count: 5,
+  });
 
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if (w < 480) setSize({ width: 56, height: 96, gap: 6 });
-      else if (w < 768) setSize({ width: 90, height: 150, gap: 10 });
-      else if (w < 1100) setSize({ width: 140, height: 230, gap: 16 });
-      else setSize({ width: 180, height: 290, gap: 20 });
+      // Phone: 3 larger tiles that fill the width. Tablet+: full 5-up strip.
+      const count = w < 640 ? 3 : 5;
+      const pad = w < 640 ? 24 : 48;
+      const gap = w < 640 ? 10 : w < 1100 ? 16 : 20;
+      const available = w - pad * 2 - gap * (count - 1);
+      const width = Math.max(
+        72,
+        Math.min(w < 640 ? 130 : 180, Math.floor(available / count)),
+      );
+      const height = Math.round(width * 1.62);
+      setSize({ width, height, gap, count });
     };
     update();
     window.addEventListener("resize", update);
@@ -85,19 +97,28 @@ export function EditorialPreloader({
   const centerRef = useRef<HTMLDivElement>(null);
   const revealedRef = useRef(false);
   const finishedRef = useRef(false);
-  const { width: itemWidth, height: itemHeight, gap } = useTileSize();
+  const { width: itemWidth, height: itemHeight, gap, count } = useTileSize();
+  const images =
+    count === 3
+      ? [LOADER_IMAGES[1], LOADER_IMAGES[2], LOADER_IMAGES[3]]
+      : LOADER_IMAGES;
+  const centerIndex = Math.floor(images.length / 2);
 
-  const totalWidth = itemWidth * 5 + gap * 4;
+  const totalWidth = itemWidth * images.length + gap * (images.length - 1);
   const gridLeft = (i: number) =>
     `calc(50% - ${totalWidth / 2}px + ${i * (itemWidth + gap)}px)`;
   const gridTop = `calc(50% - ${itemHeight / 2}px)`;
   const restingTopPx = containerH > 0 ? containerH / 2 - itemHeight / 2 : 0;
 
   const entryY = (i: number) => {
-    if (containerH === 0) return i === 1 || i === 3 ? -400 : 400;
-    return i === 1 || i === 3
-      ? -(restingTopPx + itemHeight + 12)
-      : containerH - restingTopPx + 12;
+    const travel = Math.min(
+      containerH > 0 ? containerH * 0.55 : 280,
+      itemHeight + 80,
+    );
+    if (containerH === 0) return i % 2 === 0 ? travel : -travel;
+    return i % 2 === 0
+      ? containerH - restingTopPx + 8
+      : -(restingTopPx + itemHeight + 8);
   };
 
   useLayoutEffect(() => {
@@ -105,7 +126,7 @@ export function EditorialPreloader({
     const el = containerRef.current;
     if (!el) return;
     setContainerH(el.offsetHeight || window.innerHeight);
-  }, [itemWidth, itemHeight, open, playId]);
+  }, [itemWidth, itemHeight, count, open, playId]);
 
   useEffect(() => {
     if (!open) return;
@@ -227,9 +248,9 @@ export function EditorialPreloader({
           aria-busy="true"
           role="status"
         >
-          {LOADER_IMAGES.map((path, i) => {
+          {images.map((path, i) => {
             const src = imgSrc(path);
-            const isCenter = i === 2;
+            const isCenter = i === centerIndex;
 
             if (
               isCenter &&

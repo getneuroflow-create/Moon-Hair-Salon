@@ -166,7 +166,7 @@ export function Header() {
             : "bg-transparent text-paper",
         )}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3.5 sm:gap-4 sm:px-5 sm:py-4 md:px-8">
           <Link
             href="/"
             className="relative z-10 flex items-center gap-3"

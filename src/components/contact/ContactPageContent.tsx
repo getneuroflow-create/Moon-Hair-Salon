@@ -14,8 +14,8 @@ export function ContactPageContent() {
   const hours = siteConfig.hours[locale];
 
   return (
-    <Section className="bg-deep pb-24 pt-28 text-paper md:pb-32 md:pt-36">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <Section className="overflow-x-hidden bg-deep pb-20 pt-24 text-paper sm:pb-24 sm:pt-28 md:pb-32 md:pt-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         <Reveal>
           <SectionHeading
             title={t.contactPage.title}
@@ -26,9 +26,9 @@ export function ContactPageContent() {
           />
         </Reveal>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-8 sm:mt-14 sm:gap-10 lg:grid-cols-2">
           <Reveal direction="left">
-            <SpotlightCard className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 md:p-8">
+            <SpotlightCard className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5 sm:rounded-[1.75rem] sm:p-6 md:p-8">
               <div className="space-y-8">
               <div>
                 <h3 className="text-xs uppercase tracking-[0.28em] text-champagne-light">

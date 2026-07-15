@@ -15,11 +15,11 @@ export const springSoft = {
 };
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 36 },
+  hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.85, ease: easeLuxury },
+    transition: { duration: 0.7, ease: easeLuxury },
   },
 };
 
@@ -41,20 +41,20 @@ export const fadeIn: Variants = {
 };
 
 export const fadeLeft: Variants = {
-  hidden: { opacity: 0, x: -36 },
+  hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.85, ease: easeLuxury },
+    transition: { duration: 0.7, ease: easeLuxury },
   },
 };
 
 export const fadeRight: Variants = {
-  hidden: { opacity: 0, x: 36 },
+  hidden: { opacity: 0, x: 20 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.85, ease: easeLuxury },
+    transition: { duration: 0.7, ease: easeLuxury },
   },
 };
 
@@ -68,37 +68,34 @@ export const scaleIn: Variants = {
 };
 
 export const sectionReveal: Variants = {
-  hidden: { opacity: 0, y: 48 },
+  hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.9,
+      duration: 0.75,
       ease: easeLuxury,
-      when: "beforeChildren",
-      staggerChildren: 0.12,
     },
   },
 };
 
+/** Do not fade the container — tall grids on mobile never met IO thresholds when opacity stayed 0. */
 export const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
+      staggerChildren: 0.08,
+      delayChildren: 0.04,
     },
   },
 };
 
 export const staggerFast: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
     transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.06,
+      staggerChildren: 0.05,
+      delayChildren: 0.02,
     },
   },
 };

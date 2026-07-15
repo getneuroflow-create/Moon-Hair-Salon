@@ -25,6 +25,13 @@ const directionVariants = {
   scale: scaleIn,
 } as const;
 
+/** Mobile Safari often fails stricter amounts on tall sections — keep this soft. */
+const softViewport = {
+  once: true,
+  amount: 0.05 as const,
+  margin: "0px 0px -8% 0px" as const,
+};
+
 type RevealProps = {
   children: ReactNode;
   className?: string;
@@ -40,7 +47,7 @@ export function Reveal({
   delay = 0,
   direction = "up",
   once = true,
-  amount = 0.18,
+  amount = 0.05,
 }: RevealProps) {
   const reduce = useReducedMotion();
 
@@ -53,7 +60,7 @@ export function Reveal({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount, margin: "0px 0px -40px 0px" }}
+      viewport={{ once, amount, margin: "0px 0px -8% 0px" }}
       variants={directionVariants[direction]}
       transition={{ delay }}
     >
@@ -67,7 +74,10 @@ type SectionProps = {
   className?: string;
   id?: string;
   delay?: number;
-} & Omit<HTMLMotionProps<"section">, "children" | "initial" | "whileInView" | "variants">;
+} & Omit<
+  HTMLMotionProps<"section">,
+  "children" | "initial" | "whileInView" | "variants"
+>;
 
 export function Section({
   children,
@@ -92,7 +102,7 @@ export function Section({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12, margin: "0px 0px -60px 0px" }}
+      viewport={softViewport}
       variants={sectionReveal}
       transition={{ delay }}
       {...rest}
@@ -122,7 +132,7 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12, margin: "0px 0px -40px 0px" }}
+      viewport={softViewport}
       variants={fast ? staggerFast : staggerContainer}
     >
       {children}
@@ -149,7 +159,10 @@ export function StaggerItem({
     <motion.div
       className={cn(className)}
       variants={directionVariants[direction]}
-      whileHover={{ y: -3, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
+      whileHover={{
+        y: -3,
+        transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+      }}
     >
       {children}
     </motion.div>
@@ -172,10 +185,10 @@ export function FadeImage({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, scale: 1.04 }}
+      initial={{ opacity: 0.2, scale: 1.02 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      viewport={softViewport}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

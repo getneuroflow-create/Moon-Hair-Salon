@@ -27,14 +27,14 @@ export function ReviewsSlider() {
   const review = reviews[index];
 
   return (
-    <Section className="relative overflow-hidden bg-deep py-24 text-paper md:py-32">
+    <Section className="relative overflow-x-hidden bg-deep py-16 text-paper sm:py-24 md:py-32">
       <div className="gradient-deep absolute inset-0 -z-10" />
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
         <div className="absolute left-[10%] top-0 h-72 w-72 rounded-full bg-champagne/15 blur-3xl" />
         <div className="absolute bottom-0 right-[8%] h-80 w-80 rounded-full bg-blush/10 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <Reveal>
             <SectionHeading
@@ -48,17 +48,17 @@ export function ReviewsSlider() {
             <Button
               href="/reviews"
               variant="secondary"
-              className="!border-paper/25 !text-paper hover:!border-champagne hover:!text-champagne"
+              className="w-full !border-paper/25 !text-paper hover:!border-champagne hover:!text-champagne sm:w-auto"
             >
               {t.reviews.cta}
             </Button>
           </Reveal>
         </div>
 
-        <Reveal className="mt-12">
-          <div className="relative overflow-hidden rounded-[2rem] border border-paper/10 bg-paper/[0.04] p-8 backdrop-blur-sm md:p-12">
+        <Reveal className="mt-10 sm:mt-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-paper/10 bg-paper/[0.04] p-5 backdrop-blur-sm sm:rounded-[2rem] sm:p-8 md:p-12">
             <div
-              className="mb-6 flex items-center gap-1 text-champagne"
+              className="mb-5 flex items-center gap-1 text-champagne sm:mb-6"
               aria-hidden
             >
               {Array.from({ length: review.rating }).map((_, i) => (
@@ -66,7 +66,7 @@ export function ReviewsSlider() {
               ))}
             </div>
 
-            <div className="min-h-[12rem] md:min-h-[10rem]" aria-live="polite">
+            <div className="min-h-[10rem] md:min-h-[10rem]" aria-live="polite">
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={review.id}
@@ -75,10 +75,10 @@ export function ReviewsSlider() {
                   exit={reduce ? undefined : { opacity: 0, x: -28 }}
                   transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <p className="font-display text-2xl leading-snug text-paper md:text-4xl">
+                  <p className="font-display text-xl leading-snug text-paper sm:text-2xl md:text-4xl">
                     “{review.quote[locale]}”
                   </p>
-                  <footer className="mt-8 text-sm text-paper/60">
+                  <footer className="mt-6 text-sm text-paper/60 sm:mt-8">
                     <span className="font-medium text-paper">
                       {review.author}
                     </span>
@@ -89,7 +89,7 @@ export function ReviewsSlider() {
               </AnimatePresence>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-2">
+            <div className="mt-6 flex flex-wrap items-center gap-2 sm:mt-8">
               {reviews.map((item, i) => (
                 <motion.button
                   key={item.id}

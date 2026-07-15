@@ -37,11 +37,11 @@ export function TeamPageContent() {
               {t.teamPage.subtitle}
             </p>
             <p className="mt-3 text-sm text-wine">{t.teamPage.note}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button href={siteConfig.phoneHref} variant="wine">
+            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <Button href={siteConfig.phoneHref} variant="wine" className="w-full sm:w-auto">
                 {t.teamPage.cta}
               </Button>
-              <div className="flex gap-2 text-ink">
+              <div className="flex justify-center gap-2 text-ink sm:justify-start">
                 <IconButton label="Previous stylists" onClick={() => scrollBy(-1)}>
                   <ChevronLeft size={18} />
                 </IconButton>

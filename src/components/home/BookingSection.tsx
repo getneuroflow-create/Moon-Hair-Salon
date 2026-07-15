@@ -110,36 +110,39 @@ export function BookingSection() {
     "w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-paper outline-none placeholder:text-paper/35 transition-all duration-400 focus:border-champagne focus:bg-white/[0.07]";
 
   return (
-    <Section id="booking" className="relative overflow-hidden bg-deep py-24 text-paper md:py-32">
+    <Section
+      id="booking"
+      className="relative overflow-x-hidden bg-deep py-16 text-paper sm:py-20 md:py-32"
+    >
       <div className="gradient-deep absolute inset-0 -z-10" />
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-champagne-light">
             {t.booking.eyebrow}
           </p>
-          <h2 className="font-display mt-3 text-4xl md:text-5xl lg:text-6xl">
+          <h2 className="font-display mt-3 text-[2rem] leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {t.booking.title}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-paper/70 md:text-lg">
+          <p className="mt-4 text-sm leading-relaxed text-paper/70 sm:text-base md:text-lg">
             {t.booking.body}
           </p>
-          <p className="mt-3 text-sm text-paper/50">{t.booking.hoursNote}</p>
+          <p className="mt-3 text-xs text-paper/50 sm:text-sm">{t.booking.hoursNote}</p>
         </Reveal>
 
         {/* Stats */}
-        <Reveal className="mx-auto mt-12 max-w-4xl">
-          <div className="grid grid-cols-3 gap-4 rounded-[1.5rem] border border-white/10 px-4 py-8 md:px-10">
+        <Reveal className="mx-auto mt-10 max-w-4xl sm:mt-12">
+          <div className="grid grid-cols-3 gap-2 rounded-[1.25rem] border border-white/10 px-2 py-6 sm:gap-4 sm:rounded-[1.5rem] sm:px-4 sm:py-8 md:px-10">
             {[
               { value: "5,000+", label: t.booking.stats.clients },
               { value: "15+", label: t.booking.stats.years },
               { value: String(siteConfig.rating.count), label: t.booking.stats.reviews },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="font-display text-3xl text-champagne-light md:text-5xl">
+                <p className="font-display text-2xl text-champagne-light sm:text-3xl md:text-5xl">
                   {stat.value}
                 </p>
-                <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-paper/55 md:text-xs">
+                <p className="mt-1 text-[9px] uppercase leading-tight tracking-[0.14em] text-paper/55 sm:mt-2 sm:text-[10px] sm:tracking-[0.22em] md:text-xs">
                   {stat.label}
                 </p>
               </div>
@@ -164,7 +167,7 @@ export function BookingSection() {
                   setServiceId(e.target.value);
                   setError(null);
                 }}
-                className="w-full rounded-full border border-white/15 bg-deep px-5 py-3.5 text-sm text-paper outline-none transition focus:border-champagne"
+                className="w-full rounded-full border border-champagne/70 bg-deep px-4 py-3.5 text-sm text-paper outline-none transition focus:border-champagne sm:px-5"
                 required
               >
                 <option value="" disabled className="bg-deep text-paper">
@@ -186,7 +189,7 @@ export function BookingSection() {
             </label>
           </Reveal>
 
-          <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {bookable.map((service) => {
               const active = service.id === serviceId;
               return (
@@ -201,27 +204,27 @@ export function BookingSection() {
                         ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
                     }}
                     className={cn(
-                      "group w-full overflow-hidden rounded-[1.5rem] border text-left transition-all duration-400",
+                      "group w-full overflow-hidden rounded-[1.25rem] border text-left transition-all duration-400 sm:rounded-[1.5rem]",
                       active
                         ? "border-champagne shadow-[0_0_0_1px_rgba(155,53,48,0.5)]"
                         : "border-white/10 hover:border-white/25",
                     )}
                   >
                     <FadeImage>
-                      <div className="relative h-40 overflow-hidden">
+                      <div className="relative aspect-[4/3] overflow-hidden sm:aspect-auto sm:h-40">
                         <Image
                           src={service.image}
                           alt={service.imageAlt[locale]}
                           fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           quality={85}
-                          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                          className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/20 to-transparent" />
                       </div>
                     </FadeImage>
-                    <div className="bg-deep/90 p-5">
-                      <h4 className="font-display text-2xl text-champagne-light">
+                    <div className="bg-deep/90 p-4 sm:p-5">
+                      <h4 className="font-display text-xl text-champagne-light sm:text-2xl">
                         {service.name[locale]}
                       </h4>
                       <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-paper/65">
@@ -232,7 +235,7 @@ export function BookingSection() {
                           <p className="text-[10px] uppercase tracking-[0.2em] text-champagne">
                             {t.booking.from}
                           </p>
-                          <p className="font-display text-3xl text-champagne-light">
+                          <p className="font-display text-2xl text-champagne-light sm:text-3xl">
                             ${service.priceFrom}
                           </p>
                         </div>
@@ -243,7 +246,7 @@ export function BookingSection() {
                       </div>
                       <span
                         className={cn(
-                          "mt-4 inline-flex rounded-full border px-4 py-1.5 text-xs uppercase tracking-wider",
+                          "mt-4 inline-flex min-h-10 items-center rounded-full border px-4 py-1.5 text-xs uppercase tracking-wider",
                           active
                             ? "border-champagne bg-champagne/20 text-champagne-light"
                             : "border-white/20 text-paper/80",
@@ -264,10 +267,10 @@ export function BookingSection() {
           <h3 className="mb-6 text-center text-xs font-medium uppercase tracking-[0.28em] text-champagne-light">
             {t.booking.selectDateTime}
           </h3>
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
             {/* Calendar */}
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]">
-              <div className="flex items-center justify-between bg-gradient-to-r from-champagne to-mocha px-5 py-4">
+            <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] sm:rounded-[1.5rem]">
+              <div className="flex items-center justify-between bg-gradient-to-r from-champagne to-mocha px-4 py-3.5 sm:px-5 sm:py-4">
                 <button
                   type="button"
                   aria-label="Previous month"
@@ -289,13 +292,13 @@ export function BookingSection() {
                 </button>
               </div>
 
-              <div className="p-5">
-                <div className="mb-3 grid grid-cols-7 gap-1 text-center text-[10px] uppercase tracking-wider text-champagne-light/80">
+              <div className="p-3 sm:p-5">
+                <div className="mb-2 grid grid-cols-7 gap-0.5 text-center text-[9px] uppercase tracking-wider text-champagne-light/80 sm:mb-3 sm:gap-1 sm:text-[10px]">
                   {weekdayKeys.map((d) => (
                     <span key={d}>{d}</span>
                   ))}
                 </div>
-                <div className="grid grid-cols-7 gap-1.5">
+                <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
                   {cells.map((day, i) => {
                     if (!day) return <span key={`e-${i}`} />;
                     const status = getDayStatus(day);
@@ -313,7 +316,7 @@ export function BookingSection() {
                         disabled={disabled}
                         onClick={() => pickDate(day)}
                         className={cn(
-                          "relative flex aspect-square flex-col items-center justify-center rounded-xl text-sm transition",
+                          "relative flex min-h-10 aspect-square flex-col items-center justify-center rounded-lg text-xs transition sm:rounded-xl sm:text-sm",
                           selected
                             ? "bg-champagne text-paper shadow-[0_0_20px_rgba(155,53,48,0.45)]"
                             : disabled
@@ -325,7 +328,7 @@ export function BookingSection() {
                         {!disabled || status === "full" ? (
                           <span
                             className={cn(
-                              "mt-0.5 h-1.5 w-1.5 rounded-full",
+                              "mt-0.5 h-1 w-1 rounded-full sm:h-1.5 sm:w-1.5",
                               selected ? "bg-paper" : statusDot(status),
                             )}
                           />
@@ -335,7 +338,7 @@ export function BookingSection() {
                   })}
                 </div>
 
-                <div className="mt-5 flex flex-wrap gap-4 text-[10px] uppercase tracking-[0.18em] text-paper/55">
+                <div className="mt-4 flex flex-wrap gap-3 text-[9px] uppercase tracking-[0.14em] text-paper/55 sm:mt-5 sm:gap-4 sm:text-[10px] sm:tracking-[0.18em]">
                   <span className="inline-flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-emerald-400" />
                     {t.booking.available}
@@ -353,14 +356,14 @@ export function BookingSection() {
             </div>
 
             {/* Time slots */}
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]">
-              <div className="border-b border-white/10 px-5 py-4">
+            <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] sm:rounded-[1.5rem]">
+              <div className="border-b border-white/10 px-4 py-3.5 sm:px-5 sm:py-4">
                 <div className="flex items-center gap-3">
                   <span className="inline-flex rounded-lg bg-champagne/25 p-2 text-champagne-light">
                     <Clock size={18} />
                   </span>
                   <div>
-                    <p className="font-display text-xl text-paper">
+                    <p className="font-display text-lg text-paper sm:text-xl">
                       {t.booking.selectTime}
                     </p>
                     <p className="text-sm text-paper/55">
@@ -372,13 +375,13 @@ export function BookingSection() {
                 </div>
               </div>
 
-              <div className="grid gap-3 p-5 sm:grid-cols-2">
+              <div className="grid grid-cols-2 gap-2 p-3 sm:gap-3 sm:p-5">
                 {!selectedDate ? (
-                  <p className="sm:col-span-2 text-sm text-paper/45">
+                  <p className="col-span-2 text-sm text-paper/45">
                     {t.booking.needDate}
                   </p>
                 ) : slots.length === 0 ? (
-                  <p className="sm:col-span-2 text-sm text-paper/45">
+                  <p className="col-span-2 text-sm text-paper/45">
                     {t.booking.closed}
                   </p>
                 ) : (
@@ -455,14 +458,14 @@ export function BookingSection() {
           <form
             id="booking-details"
             onSubmit={onSubmit}
-            className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 md:p-8"
+            className="rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4 sm:rounded-[1.5rem] sm:p-6 md:p-8"
             noValidate
           >
-            <h3 className="font-display text-2xl text-paper md:text-3xl">
+            <h3 className="font-display text-xl text-paper sm:text-2xl md:text-3xl">
               {t.booking.yourDetails}
             </h3>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="mt-5 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2">
               <label className="block text-sm sm:col-span-2">
                 <span className="mb-2 block text-paper/60">
                   {t.booking.selectService} *
@@ -547,12 +550,12 @@ export function BookingSection() {
             ) : null}
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button type="submit" variant="wine">
+              <Button type="submit" variant="wine" className="w-full sm:w-auto">
                 {t.booking.submit}
               </Button>
               <a
                 href={siteConfig.phoneHref}
-                className="text-sm text-paper/60 transition hover:text-champagne-light"
+                className="inline-flex min-h-11 items-center justify-center text-sm text-paper/60 transition hover:text-champagne-light"
               >
                 {siteConfig.phone}
               </a>

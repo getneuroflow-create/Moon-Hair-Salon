@@ -28,7 +28,7 @@ export function Footer() {
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-mocha/40 blur-3xl" />
       </div>
 
-      <Stagger className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-2 md:px-8 lg:grid-cols-3 lg:gap-16">
+      <Stagger className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:gap-12 sm:px-5 sm:py-16 md:grid-cols-2 md:px-8 lg:grid-cols-3 lg:gap-16">
         <StaggerItem>
           <Reveal className="overflow-hidden rounded-[1.75rem] border border-paper/10">
             <iframe
@@ -74,12 +74,12 @@ export function Footer() {
           <h3 className="mt-10 text-xs font-medium uppercase tracking-[0.28em] text-champagne-light">
             {t.footer.quickLinks}
           </h3>
-          <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-paper/75">
+          <ul className="mt-5 flex flex-col gap-3 text-sm text-paper/75 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="smooth-underline transition-colors hover:text-champagne-light"
+                  className="inline-flex min-h-10 items-center smooth-underline transition-colors hover:text-champagne-light"
                 >
                   {link.label}
                 </Link>

@@ -143,24 +143,24 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
   return (
     <Section
       id="inquiry"
-      className="relative overflow-hidden bg-deep py-24 text-paper md:py-32"
+      className="relative overflow-x-hidden bg-deep py-16 text-paper sm:py-24 md:py-32"
     >
       <div className="gradient-deep absolute inset-0 -z-10" />
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-champagne-light">
             {t.inquiry.eyebrow}
           </p>
-          <h2 className="font-display mt-3 text-4xl leading-tight md:text-5xl">
+          <h2 className="font-display mt-3 text-[2rem] leading-tight sm:text-4xl md:text-5xl">
             {t.inquiry.title}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-paper/70 md:text-lg">
+          <p className="mt-4 text-sm leading-relaxed text-paper/70 sm:text-base md:text-lg">
             {t.inquiry.body}
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:gap-6 lg:grid-cols-2 lg:items-stretch">
           {/* Visit / hours panel */}
           <Reveal direction="left">
             <div className="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.04]">
