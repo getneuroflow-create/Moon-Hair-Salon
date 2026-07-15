@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { withBasePath } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/data/site";
 
@@ -31,7 +32,7 @@ export function Logo({ className, tone = "light", priority = false }: LogoProps)
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`${src}?v=4`}
+        src={`${withBasePath(src)}?v=4`}
         alt={siteConfig.name}
         width={160}
         height={88}

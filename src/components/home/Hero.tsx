@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { siteConfig } from "@/data/site";
+import { withBasePath } from "@/lib/assets";
 
 export function Hero() {
   const { t } = useLanguage();
@@ -31,13 +32,16 @@ export function Hero() {
           loop
           playsInline
           preload="metadata"
-          poster="/brand/logo.png"
+          poster={withBasePath("/brand/logo.png")}
           aria-hidden
           initial={reduce ? false : { scale: 1.08, opacity: 0.7 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <source src={siteConfig.media.introVideo} type="video/mp4" />
+          <source
+            src={withBasePath(siteConfig.media.introVideo)}
+            type="video/mp4"
+          />
         </motion.video>
         <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/55 to-deep/30" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(14,12,10,0.55)_100%)]" />

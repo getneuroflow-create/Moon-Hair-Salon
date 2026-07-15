@@ -63,7 +63,9 @@ export const siteConfig = {
     logoDark: "/brand/logo-dark.png",
     introVideo: "/media/intro.mp4",
   },
-  url: "https://moonhairstudio.com",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://moonhairstudio.com",
 } as const;
 
 export type Locale = "en" | "es";
